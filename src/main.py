@@ -139,6 +139,14 @@ def load_music():
     pygame.mixer.music.play(-1)
 
 
+def play_pig_notif():
+    """Plays the pig notification based on pigs remaining"""
+    if 1 <= len(pigs) <= 3:
+        notif = '../resources/sounds/{}-pigs-remaining.mp3'.format(len(pigs))
+        pygame.mixer.music.load(notif)
+        pygame.mixer.music.play(1)
+
+
 def sling_action():
     """Set up sling behavior"""
     global mouse_distance
@@ -271,6 +279,7 @@ def post_solve_bird_pig(arbiter, space, _):
     for pig in pigs_to_remove:
         space.remove(pig.shape, pig.shape.body)
         pigs.remove(pig)
+    play_pig_notif()
 
 
 def post_solve_bird_wood(arbiter, space, _):
@@ -309,6 +318,7 @@ def post_solve_pig_wood(arbiter, space, _):
     for pig in pigs_to_remove:
         space.remove(pig.shape, pig.shape.body)
         pigs.remove(pig)
+    play_pig_notif()
 
 
 # bird and pigs
